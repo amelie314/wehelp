@@ -41,8 +41,10 @@ def save_attractions_by_mrt_to_csv(mrt_groups, attractions_count):
     with open('mrt.csv', mode='w', encoding='utf-8', newline='') as file:
     
         writer = csv.writer(file)
+
+        chinese_num = ["一", "二", "三", "四", "五", "六", "七", "八", "九"]
     
-        header = ["捷運站名稱"] + ["景點名稱" + str(i) for i in range(attractions_count)]
+        header = ["捷運站名稱"] + ["景點名稱" + chinese_num[i] for i in range(attractions_count)]
     
         writer.writerow(header)
         
