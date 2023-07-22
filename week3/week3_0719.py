@@ -52,6 +52,9 @@ def save_attractions_by_mrt_to_csv(mrt_groups, attractions_count):
 
             attraction_names = [attraction['stitle'] for attraction in attractions]
 
+            if len(attraction_names) < 7:
+                attraction_names += [""] * (7 - len(attraction_names))
+
             writer.writerow([station] + attraction_names)
             
 url = 'https://padax.github.io/taipei-day-trip-resources/taipei-attractions-assignment.json'
