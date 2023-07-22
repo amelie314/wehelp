@@ -42,20 +42,22 @@ def save_attractions_by_mrt_to_csv(mrt_groups, attractions_count):
     
         writer = csv.writer(file)
 
-        chinese_num = ["一", "二", "三", "四", "五", "六", "七", "八", "九"]
+        chinese_num = ["一", "二", "三", "四", "五", "六", "七"]
     
         header = ["捷運站名稱"] + ["景點名稱" + chinese_num[i] for i in range(attractions_count)]
     
         writer.writerow(header)
         
         for station, attractions in mrt_groups.items():
-
             attraction_names = [attraction['stitle'] for attraction in attractions]
+            
+            attraction_num = " "
 
-            if len(attraction_names) < 7:
-                attraction_names += [""] * (7 - len(attraction_names))
-
-            writer.writerow([station] + attraction_names)
+            if len(attraction_names) >= attractions_count:
+                attraction_num = attraction_names[:attractions_count]
+            else:
+                attraction_num = attraction_names + [''] * (attractions_count - len(attraction_names))
+            writer.writerow([station] + attraction_num)
             
 url = 'https://padax.github.io/taipei-day-trip-resources/taipei-attractions-assignment.json'
 
