@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" >
+  <title>Week1</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+<link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<header>
+  <div class="logo">
+    <h1>MyWebsite</h1>
+  </div>
+  <nav>
+    <div class="hamburger-menu">
+      <img src="https://cdn4.iconfinder.com/data/icons/evil-icons-user-interface/64/menu-512.png" alt="Menu">
+    </div>
+    <ul class="menu-items">
+      <li><a href="#">Item1</a></li>
+      <li><a href="#">Item2</a></li>
+      <li><a href="#">Item3</a></li>
+      <li><a href="#">Item4</a></li>
+    </ul>
+  </nav>
+</header>
+<div class="banner">
+    <h2>Welcome to Myhome</h2>
+</div>
+    <main>
+    <!-- 這裡將用 JavaScript 動態加入景點資料 -->
+      <ul class="thumbnail">
+      </ul>
+      <ul class="profile">
+      </ul>
+    </main>
+  </div>
+  <script>
+    //用fetch取得資料
+    //fetch語法：fetch(url).then(response => response.json()).then(data => console.log(data));
+    fetch("https://padax.github.io/taipei-day-trip-resources/taipei-attractions-assignment.json")
+      .then(response => response.json())
+      .then(data => createElements(data));
+
+    function createElements(data) {
+      const attractions = data["result"]["results"];
+      console.log(attractions.length);
+
+      const thumbnail = document.querySelector(".thumbnail");
+      const profile = document.querySelector(".profile");
+
+      // 顯示前 3 個景點資料
+      for (let i = 0; i < 3; i++) {
+        thumbnailGenerate(i, attractions, thumbnail);
+      }
+
+      // 顯示後續的景點資料（12 個）
+      for (let i = 3; i < 15; i++) {
+        profileGenerate(i, attractions, profile);
+      }
+
+      // 判斷是否要顯示更多按鈕
+    //   if (attractions.length > 15) {
+    //     showMore = true;
+    //     showMoreGenerate(profile);
+    //   }
+    }
+
+    function thumbnailGenerate(i, attractions, thumbnail) {
+      let liThumbnail = document.createElement("li");
+      liThumbnail.className = `thumbnail-li thumbnail-li-${i + 1}`;
+
+      // 創建一個 img 元素，並設定圖片來源
+      let imgElement = document.createElement("img");
+      imgElement.src = "https://"+ attractions[i].file.split("https://")[1]
+      console.log("https://"+ attractions[i].file.split("https://")[1]); 
+      imgElement.alt = "thumbnail" + i;
+      imgElement.className = "thumbnail-img";
+
+      // 創建一個 a 元素，並設定連結與顯示文字    
+      let aElement = document.createElement("a");
+      aElement.href = attractions[i].url;
+      aElement.textContent = attractions[i].stitle;
+
+      // 將 img 元素與 a 元素加入 li 元素中
+      liThumbnail.appendChild(imgElement);
+      liThumbnail.appendChild(aElement);
+
+      // 將 li 元素加入 thumbnail ul 中
+      thumbnail.appendChild(liThumbnail);
+    }
+
+    function profileGenerate(i, attractions, profile) {
+      let liProfile = document.createElement("li");
+      liProfile.className = `profile-li profile-li-${i - 2}`;
+
+      let divElement = document.createElement("div");
+      divElement.className = `profile-img profile-img-${i - 2}`;
+
+      let imgElement = document.createElement("img");
+      imgElement.src = "https://"+ attractions[i].file.split("https://")[1];
+      console.log("https://"+ attractions[i].file.split("https://")[1]); 
+      imgElement.alt = `profile-img-${i - 2}`;
+      imgElement.className = "profile-img";
+
+      let divElementTitle = document.createElement("div");
+      divElementTitle.className = `profile-title profile-title-${i - 2}`;
+
+      let spanElement = document.createElement("span");
+      spanElement.textContent = attractions[i].stitle;
+
+      profile.appendChild(liProfile);
+      liProfile.appendChild(imgElement);
+      liProfile.appendChild(divElementTitle);
+      divElementTitle.appendChild(spanElement);
+      
+      console.log(profile);      
+    }
+
+
+</script>
+</body>
+</html>

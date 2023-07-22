@@ -1,0 +1,180 @@
+body {
+  margin: 0;
+  font-size: 20px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #F5F5F5;
+  font-size: 20px;
+  color: #0E3C33;
+  font-weight: bold;
+}
+.logo {
+  margin-left: 20px;
+  
+  img {
+    width: 80px;
+    height: 80px;
+    vertical-align: middle;
+  }
+}
+
+nav {
+  margin-right: 20px;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  
+  li {
+    margin-left: 20px;
+    
+    a {
+      text-decoration: none;
+      color: #0E3C33;
+      font-weight: bold;
+    }
+  }
+}
+
+/* .banner {
+    text-align: center;
+    padding-top: 100px;
+  
+} */
+
+.banner {
+  height: 250px;
+  margin-top:10px;
+  background-color: #A5D1D0;
+  color: #0E3C33;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  
+  h2 {
+    font-size: 40px;
+    line-height: 1.5;
+    margin: 0;
+  }
+}
+main {
+  width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// .thumbnail {
+//   justify-content: space-between;
+//   flex-wrap: wrap;
+//   width: 1200px;
+//   margin-top: 50px;
+//   gap: 20px;
+  
+//   .thumbnail-li {
+//     justify-content: flex-start;
+//     max-height: 50px;
+//     background-color: #BB9BB0;
+
+//     .thumbnail-img {
+//       object-fit: cover;
+//     }
+//     .thumbnail-title {
+//       padding: 10px;
+//     }
+//   }
+// }
+
+.thumbnail {
+  display: flex;
+  justify-content: space-between;
+  width: 1200px;
+  margin: 0 auto;
+  margin-top: 50px;
+  gap: 20px;
+}
+
+// .thumbnail-li {
+//   flex-basis: calc((100% - 40px) / 3);
+//   max-height: 50px;
+//   background-color: #BB9BB0;
+//   display: flex;
+//   align-items: center;
+//   padding: 10px;
+// }
+
+.thumbnail-li {
+  flex: 1;
+  max-width: calc((100% - 40px) / 3);
+  max-height: 50px;
+  background-color: #EDEAE2;
+  display: flex;
+  align-items: center;
+ 
+  overflow: hidden; /* 添加這行 */
+  a {
+      text-decoration: none;
+      color: #0E3C33;
+      font-weight: bold;
+  }
+}
+.thumbnail-img {
+  width: 80px;
+  height: auto;
+  object-fit: cover;
+  margin-right: 10px;
+}
+/* Profile方框的容器 */
+.profile {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+/* Profile方框的容器 */
+.profile {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  gap: 20px 20px;
+}
+
+/* Profile方框 */
+.profile-li {
+  // width: calc(16.666% - 20px); /* 一行六個方框，減去間距的一半 */
+  height: 250px; /* 自訂的方框高度 */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: lightblue;
+  flex-grow: 1;
+  flex-basis: 15%;
+  
+      /* Profile方框內的圖片 */
+    .profile-img {
+      width: 100%; /* 圖片寬度和方框相同 */
+      height: auto; /* 高度自適應 */
+    }
+
+    /* Profile方框內的文字 */
+    .profile-title {
+      text-align: center; /* 水平置中 */
+      margin-top: 10px; /* 文字和圖片之間的間距 
+      */
+    }
+  }
+
