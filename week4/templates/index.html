@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home Page</title>
+</head>
+<body>
+    <h1>歡迎光臨，請輸入帳號密碼</h1>
+    <form method="post" onsubmit="return checkCheckbox()">
+        <label for="username">帳號</label>
+        <input type="text" id="username" name="username">
+        <br>
+        <label for="password">密碼</label>
+        <input type="password" id="password" name="password">
+        <br>
+        <label for="remember_me">同意條款</label>
+        <input type="checkbox" id="remember_me" name="remember_me">
+        <br>
+        <input type="submit" value="Sign In">
+    </form>
+
+    <h1>計算正整數的平方</h1>
+    <form onsubmit="return calculateSquared(event)">
+        <label for="number">Enter a positive integer:</label>
+        <input type="text" id="number" name="number" required>
+        <br>
+        <input type="submit" value="Calculate">
+    </form>
+
+    <script>
+        function checkCheckbox() {
+            // Get the checkbox element
+            let checkbox = document.getElementById('remember_me');
+
+            // Check if the checkbox is checked
+            if (!checkbox.checked) {
+                // Display an alert if the checkbox is not checked
+                alert("Please check the checkbox first");
+                return false; // Prevent form submission
+            }
+
+            // Allow form submission if the checkbox is checked
+            return true;
+        }
+        function calculateSquared(event) {
+            event.preventDefault();
+
+            // Get the input value
+            let numberInput = document.getElementById('number');
+            let number = numberInput.value.trim();
+
+            // Check if the input is a positive number
+            if (!isPositiveNumber(number)) {
+                alert("Please enter a positive number");
+                return false;
+            }
+
+            // Redirect to the squared number page
+            window.location.href = `/square/${number}`;
+        }
+
+        function isPositiveNumber(value) {
+            let num = Number(value);
+            return !isNaN(num) && num > 0;
+        }
+    </script>
+</body>
+</html>
