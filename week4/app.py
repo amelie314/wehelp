@@ -9,7 +9,7 @@ def home():
         # Get the form data
         username = request.form.get('username')
         password = request.form.get('password')
-        remember_me = request.form.get('remember_me')
+        termsOfuse = request.form.get('termsOfuse')
 
         # Verify username and password
         if not username or not password:
