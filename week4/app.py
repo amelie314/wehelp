@@ -7,33 +7,30 @@ app.secret_key = 'your_secret_key'  # Change this to a secure secret key
 def home():
     if request.method == 'POST':
         # Get the form data
-        username = request.form.get('username')
-        password = request.form.get('password')
-        termsOfuse = request.form.get('termsOfuse')
-
-        # Verify username and password
-        if not username or not password:
-            # Redirect to the error page with "Please enter username and password" message
-            error_message = "Please enter username and password"
-            return redirect(url_for('error', message=error_message))
-        elif username == "test" and password == "test":
-            # Store the user state in the session
-            session['username'] = username
-            session['authenticated'] = True
-            # Redirect to the success page if verification is successful
-            return redirect(url_for('success'))
-        else:
-            # Redirect to the error page with "Username or password is not correct" message
-            error_message = "Username or password is not correct"
-            return redirect(url_for('error', message=error_message))
-
+        return redirect(url_for('sign_in'))
     return render_template('index.html')
 
 @app.route('/signin', methods=['POST'])
-def signin():
-    # This route is used to handle the form submission, but we have already
-    # handled it in the home() function, so we can leave this empty.
-    pass
+def sign_in():
+    username = request.form.get('username')
+    password = request.form.get('password')
+    
+    print(username)
+    print(password)
+
+    if not username or not password:
+        error_message = "Please enter username and password"
+        return redirect(url_for('error', message=error_message))
+    elif username == "test" and password == "test":
+        # Store the user state in the session
+        session['username'] = username
+        session['authenticated'] = True
+        # Redirect to the success page if verification is successful
+        return redirect(url_for('success'))
+    else:
+        # Redirect to the error page with "Username or password is not correct" message
+        error_message = "Username or password is not correct"
+        return redirect(url_for('error', message=error_message))
 
 @app.route('/member')
 def success():
