@@ -4,7 +4,6 @@ import mysql.connector
 
 app = Flask(__name__)
 
-# Database configuration
 db = mysql.connector.connect(
     host="localhost",
     user="root",
@@ -27,14 +26,12 @@ def signup():
         
         cursor = db.cursor()
         
-        # Check if username already exists
         cursor.execute("SELECT * FROM member WHERE username = %s", (username,))
         existing_user = cursor.fetchone()
         
         if existing_user:
             return redirect(url_for('error', message='帳號已經被註冊'))
         
-        # Insert new user into database
         cursor.execute("INSERT INTO member (name, username, password) VALUES (%s, %s, %s)", (name, username, password))
         db.commit()
         
@@ -47,25 +44,22 @@ def signin():
     
     cursor = db.cursor()
     
-    # Check if username and password match
     cursor.execute("SELECT * FROM member WHERE username = %s AND password = %s", (username, password))
     user = cursor.fetchone()
     
     if user:
-        session['authenticated'] = True  # Store user authentication state in session
-        session['user_id'] = user[0]  # Store user ID in session
-        session['username'] = user[2]  # Store username in session
+        session['authenticated'] = True  
+        session['user_id'] = user[0] 
+        session['username'] = user[2] 
         return redirect(url_for('member'))
     else:
         return redirect(url_for('error', message='帳號或密碼輸入錯誤'))
 
 @app.route('/member')
 def member():
-    # Check if the user is authenticated before showing the success page
     if session.get('authenticated'):
         return render_template('member.html', username=session.get('username'))
     else:
-        # Redirect to the home page if not signed in
         return redirect(url_for('index'))
     
 @app.route('/error')
@@ -75,7 +69,6 @@ def error():
 
 @app.route('/signout', methods=['GET'])
 def signout():
-    # Clear the user state in the session when signing out
     session['authenticated'] = False
     return redirect(url_for('index'))
 
