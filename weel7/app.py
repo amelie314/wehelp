@@ -141,7 +141,7 @@ def get_member_info():
     member = cursor.fetchone()
 
     if not member:
-        return jsonify({"error": "Member not found!"}), 404
+        return jsonify(data = None), 404
 
     return jsonify({
         "data": {
@@ -158,7 +158,6 @@ def update_member_name():
     # 從request body中獲取新的姓名
     data = request.get_json()
     new_name = data.get('name', '')
-    session['name'] = new_name
 
     if not new_name:
         return jsonify(error=True), 400  #錯誤的請求
@@ -167,6 +166,11 @@ def update_member_name():
         cursor = db.cursor()
         cursor.execute("UPDATE member SET name=%s WHERE id=%s", (new_name, session['user_id']))
         db.commit()
+
+         # 原本寫在太前面的階段，已修改完：
+         # 確認資料庫成功更新之後，再更新 session
+        session['name'] = new_name
+        
         return jsonify(ok=True)
     except mysql.connector.Error as err:
         print("Error: {}".format(err))
